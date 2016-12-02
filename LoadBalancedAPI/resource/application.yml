@@ -1,0 +1,44 @@
+zuul:  
+  routes:
+    patient:
+      path: /PatientApi/**
+      serviceId: patientRoutes
+    visit:
+      path: /VisitApi/**
+      serviceId: visitRoutes 
+         
+patientRoutes:
+  ribbon:
+    OkToRetryOnAllOperations: true 
+    ServerListRefreshInterval: 1000  
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    DeploymentContextBasedVipAddresses: patient-service
+    ConnectTimeout: 30000
+    ReadTimeout: 30000 
+    
+visitRoutes:
+  ribbon:
+    OkToRetryOnAllOperations: true 
+    ServerListRefreshInterval: 1000
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    DeploymentContextBasedVipAddresses: visit-service
+    ConnectTimeout: 30000
+    ReadTimeout: 30000     
+    
+ribbon: 
+  eureka: 
+    enabled: true
+  
+# Server Configuration
+server:
+  port: 8080
+
+spring: 
+  application: 
+    name: zuul-service 
+    
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+      

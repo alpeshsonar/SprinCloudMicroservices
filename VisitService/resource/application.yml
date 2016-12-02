@@ -1,0 +1,27 @@
+# Server Configuration
+server:
+  port: 0
+
+# Database
+spring: 
+  application: 
+    name: visit-service 
+  datasource: 
+    url: jdbc:postgresql://localhost:5432/patientclinicalportal
+    username: postgres
+    password: root
+  jpa:  
+    properties: 
+      hibernate: 
+        ddl-auto: update 
+        current_session_context_class: jta
+        show_sql: true
+        format_sql: true
+        
+# Discovery Server Access
+#  1. Define URL of registration server (defaultZone)
+#  2. Reduce lease-renewal time so processes register more quickly
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
