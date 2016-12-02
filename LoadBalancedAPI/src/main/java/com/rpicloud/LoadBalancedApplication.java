@@ -15,8 +15,10 @@ public class LoadBalancedApplication
 {
 	public static void main(String[] args)
 	{
+
 		SpringApplication.run(LoadBalancedApplication.class, args);
 	}
+
 	@Bean
 	public PreFilter preFilter()
 	{
