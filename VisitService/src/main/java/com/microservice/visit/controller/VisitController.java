@@ -47,7 +47,7 @@ public class VisitController
 	@RequestMapping(value = "/visit/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody boolean addVisit(@RequestBody Visit visit)
 	{
-		if (visit.getVisitNo() != 0)
+		if (visit.getVisitNo() == null || visit.getVisitNo() != 0)
 		{
 			visitService.addVisit(visit);
 		}

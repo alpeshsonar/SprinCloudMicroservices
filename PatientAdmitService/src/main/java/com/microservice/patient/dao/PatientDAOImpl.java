@@ -30,22 +30,42 @@ public class PatientDAOImpl implements PatientDAO
 	@Override
 	public void addPatient(Patient patient)
 	{
+
 		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
-		entityManager.persist(patient);
-		tx.commit();
-		logger.info("Patient saved successfully, Patient Details=" + patient);
+		try
+		{
+			tx.begin();
+			entityManager.persist(patient);
+			tx.commit();
+			logger.info("Patient saved successfully, Patient Details=" + patient);
+		}
+		catch (Exception e)
+		{
+			if (tx != null)
+			{
+				tx.rollback();
+			}
+		}
 	}
 
 	@Override
 	public void updatePatient(Patient patient)
 	{
 		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
-		entityManager.merge(patient);
-		tx.commit();
-		logger.info("Patient updated successfully, Patient Details=" + patient);
-
+		try
+		{
+			tx.begin();
+			entityManager.merge(patient);
+			tx.commit();
+			logger.info("Patient updated successfully, Patient Details=" + patient);
+		}
+		catch (Exception e)
+		{
+			if (tx != null)
+			{
+				tx.rollback();
+			}
+		}
 	}
 
 	@Override
@@ -76,10 +96,21 @@ public class PatientDAOImpl implements PatientDAO
 		if (null != patient)
 		{
 			EntityTransaction tx = entityManager.getTransaction();
-			tx.begin();
-			entityManager.remove(patient);
-			tx.commit();
+			try
+			{
+				tx.begin();
+				entityManager.remove(patient);
+				tx.commit();
+			}
+			catch (Exception e)
+			{
+				if (tx != null)
+				{
+					tx.rollback();
+				}
+			}
 		}
 		logger.info("Patient deleted successfully, Patient details=" + patient);
+
 	}
 }

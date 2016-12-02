@@ -51,7 +51,7 @@ public class PatientController
 	@RequestMapping(value = "/patient/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody boolean addPerson(@RequestBody Patient patient)
 	{
-		if (patient.getID() == 0)
+		if (patient.getID() == null || patient.getID() == 0)
 		{
 			patientService.addPatient(patient);
 		}

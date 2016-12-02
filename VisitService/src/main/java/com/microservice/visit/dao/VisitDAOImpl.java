@@ -44,9 +44,19 @@ public class VisitDAOImpl implements VisitDAO
 	public void addVisit(Visit visit)
 	{
 		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
-		entityManager.persist(visit);
-		tx.commit();
+		try
+		{
+			tx.begin();
+			entityManager.persist(visit);
+			tx.commit();
+		}
+		catch (Exception e)
+		{
+			if (tx != null)
+			{
+				tx.rollback();
+			}
+		}
 		logger.info("Visit saved successfully, Visit Details=" + visit);
 
 	}
@@ -55,9 +65,19 @@ public class VisitDAOImpl implements VisitDAO
 	public void updateVisit(Visit visit)
 	{
 		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
-		entityManager.merge(visit);
-		tx.commit();
+		try
+		{
+			tx.begin();
+			entityManager.merge(visit);
+			tx.commit();
+		}
+		catch (Exception e)
+		{
+			if (tx != null)
+			{
+				tx.rollback();
+			}
+		}
 		logger.info("Visit saved successfully, Visit Details=" + visit);
 
 	}
@@ -69,9 +89,19 @@ public class VisitDAOImpl implements VisitDAO
 		if (null != visit)
 		{
 			EntityTransaction tx = entityManager.getTransaction();
-			tx.begin();
-			entityManager.remove(visit);
-			tx.commit();
+			try
+			{
+				tx.begin();
+				entityManager.remove(visit);
+				tx.commit();
+			}
+			catch (Exception e)
+			{
+				if (tx != null)
+				{
+					tx.rollback();
+				}
+			}
 		}
 		logger.info("Visit deleted successfully, Patient details=" + visit);
 	}
